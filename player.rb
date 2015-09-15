@@ -14,9 +14,9 @@ attr_accessor:player
 			when "p"
 			  return "p"
 			when "i"
-			  return "info"
+			  return "i"
 			when "q"
-			  return "quit"
+			  return "q"
 			when "b"
 			  return "b"
 			else
@@ -32,6 +32,7 @@ attr_accessor:player
 		  elsif @p_level == 2
 			return 2
 		  elsif @p_level == 3
+		  	return 3
 		end		
 	end
 

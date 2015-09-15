@@ -85,6 +85,6 @@ class Computer
         result +=comp_hash[key]
       end
    end
-    return "#{matches} exact match and #{result} partial found"
+    return "#{matches.colorize(:green)} exact match and #{result.colorize(:blue)} partial found"
  end 
 end

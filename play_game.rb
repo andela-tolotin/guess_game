@@ -14,20 +14,23 @@ class InitializeGame
       welcome_note
       # get the player game mode
        @mode = gets.chomp
-       mode = Player.choose_game_mode(@mode)
+       mode = Player.choose_game_mode(@mode.downcase)
        #display the next game screen base on the player option selected
-       arr_options = ["p","q","i","b"]
-       mode = mode.downcase.to_s
+       arr_options = ["p","b","i","q"]
+       mode = mode.downcase
+       mode = mode.to_s
+       puts mode 
+
        if arr_options.include? mode 
-        case mode
-         when "q" # call the quit to exit the game
+          case mode
+           when "q" # call the quit to exit the game
             Message.new("Thank you good bye!".colorize(:red))
-         when "p" #call the play game  
+           when "p" #call the play game  
             play_game # call the start game handle
           end
-       else
-         Message.new("You have entered a wrong input") #output a message to the user concerning a wrong input
-         self.init # call the init game agian when the user input a wrong input
+         else
+          Message.new("You have entered a wrong input") #output a message to the user concerning a wrong input
+          self.init # call the init game agian when the user input a wrong input
       end
 	end
 
@@ -48,19 +51,46 @@ class InitializeGame
         Message.new("So Would you like to play?".colorize(:green))
         Message.new("So start by telling me your name:".colorize(:green))
         player = gets.chomp
-        Computer.begin(computer_generated_color.shuffle)
-        #get the user guess and the guess must not be greater than the length of the computer generated code
-        player_guess = gets.chomp # get the player guess
-        player_guess = player_guess.upcase #convert the player guess to upcase 
-        guesses = 12 # Number of chances the user has before starting the game
-        puts Computer.partial_and_matches(computer_generated_color,player_guess)
-
+        comp_guess = Computer.begin(computer_generated_color.shuffle) #output to the player the pattern of the color expected from the player
+        run_guesses(computer_generated_color)
        else
         Message.new("You have entered a wrong level option") #output a message to the user concerning a wrong input
         self.play_game # call the init level agian when the user input a wrong input
         end
       end
+    end
+          
+    def display_guess_console
+      player_guess = gets.chomp # get the player guess
+      player_guess = player_guess.downcase #convert the player guess to upcase 
+      return player_guess
+    end
 
+    def run_guesses(comp_guess,attempts=0,guesses=0)
+      #no_of_attemps = 0 #Number of attempts the player made before the game terminates
+      #no_of_guess = 0 # Number of chances the user has before starting the game
+       while guesses < 12 do 
+            
+          player_guess = display_guess_console #called the console function to return the player guess input
+
+          if player_guess.to_s == "q"
+              Message.new("Thank you good bye!".colorize(:red))
+              break
+            elsif guesses >= 12
+              Message.new("Congratulations !".colorize(:red))  
+             else
+            #get the user guess and the guess must not be greater than the length of the computer generated code
+            if (player_guess.length.to_i < comp_guess.length.to_i) || (player_guess.length.to_i > comp_guess.length.to_i)
+              Message.new("Try again!")
+              #run_guesses(comp_guess,attempts,guesses)
+              #playerguess = display_guess_console
+            else
+               guesses+=1
+               attempts+=1
+              puts "No of guesses #{guesses}, No of attempts #{attempts}"
+            end
+           end
+        end
     end
 
 	def welcome_note 
