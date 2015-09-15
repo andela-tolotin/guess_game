@@ -51,7 +51,7 @@ class Computer
   def self.intermediate_code
      colors = ["R", "G", "B", "Y", "V"]
      array = []
-     6.times { array << rand(5)}
+     5.times { array << rand(5)}
      generated_colors = array.collect { |i| colors[i] }
      return generated_colors
   end
@@ -59,7 +59,7 @@ class Computer
   def self.advanced_code
     colors = ["R", "G", "B", "Y", "V","I"]
      array = []
-     8.times { array << rand(6)}
+     6.times { array << rand(6)}
      generated_colors = array.collect { |i| colors[i] }
      return generated_colors
   end
