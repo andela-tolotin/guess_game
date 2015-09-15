@@ -78,7 +78,7 @@ mercial version. It was played on paper, not on a board... Over 50 million copie
        while guesses < 12 do 
           player_guess = display_guess_console #called the console function to return the player guess input
           if player_guess.to_s == "q"
-              Message.new("Thank you for playing MasterMind, good bye!".colorize(:red))
+              Message.new("Thank you for playing MasterMind, Good Bye!".colorize(:red))
               break
              else
             #get the user guess and the guess must not be greater than the length of the computer generated code
