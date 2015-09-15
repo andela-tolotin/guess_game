@@ -2,8 +2,17 @@ class Computer
 
   def self.begin(color_code)
      color_combination = self.convert_code_to_color(color_code)
-      Message.new("I have generated a beginner sequence with four elements made up of:
-      #{color_combination} You are to guess the sequence in which these colors appeared e.g RGBY for (r)ed, (g)reen, (y)ellow and (g)reen. You have 12 guesses to get these colors or you lose the game. Use (q)uit at any time to end the game.")
+     #determine the player level by their color code
+    game_level = color_code.length.to_i
+    game_info = ""
+    if game_level == 4
+      game_info = "I have generated a sequence with four elements made up of"
+    elsif game_level == 5
+      game_info = "I have generated a sequence with five elements made up of"
+    else
+      game_info = "I have generated a sequence with six elements made up of"
+    end
+      Message.new("#{game_info} : #{color_combination} You are to guess the sequence in which these colors appeared e.g RGBY for (r)ed, (g)reen, (y)ellow and (g)reen. You have 12 guesses to get these colors or you lose the game. Use (q)uit at any time to end the game.")
     Message.new("Ready to play?")
     Message.new("What's your guess?")
   end
@@ -85,6 +94,6 @@ class Computer
         result +=comp_hash[key]
       end
    end
-    return "#{matches.colorize(:green)} exact match and #{result.colorize(:blue)} partial found"
+    return "#{matches}".colorize(:green) + " exact match and " + "#{result}".colorize(:blue) + " partial found "
  end 
 end
