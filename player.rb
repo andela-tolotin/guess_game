@@ -8,7 +8,7 @@ attr_accessor:player
 	end
 
 	def self.choose_game_mode(game_mode)
-		@game_mode = game_mode
+		@game_mode = game_mode.downcase
 		if !@game_mode.nil?
 			case @game_mode
 			when "p"
@@ -26,18 +26,13 @@ attr_accessor:player
 	end
 
 	def self.choose_game_level(player_level)
-		@player_level = player_level
-		if !@player_level.nil?
-			case @player_level
-			 when 1
-				Computer.beginner
-			 when 2
-			 	2
-			 when 3
-				3
-			end
-		end
-
+		@p_level = player_level.to_i
+		if @p_level == 1
+			return 1
+		  elsif @p_level == 2
+			return 2
+		  elsif @p_level == 3
+		end		
 	end
 
 end
