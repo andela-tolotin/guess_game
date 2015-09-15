@@ -90,16 +90,21 @@ mercial version. It was played on paper, not on a board... Over 50 million copie
                guesses+=1
                attempts+=1
                p_guess = player_guess.upcase.split("")
-               if guesses >= 12
-                 Message.new("Congratulations !".colorize(:green))  
-                 Message.new(Computer.partial_and_matches(comp_guess,player_guess))
-                 Message.new("No of attempts #{guesses}, attempts left #{12-attempts}") 
-                 break
-                elsif comp_guess.zip(p_guess).all? { |c,p| c===p }
+                if comp_guess.zip(p_guess).all? { |c,p| c===p } && guesses >= 12
                    Message.new(Computer.partial_and_matches(comp_guess,player_guess))
                    Message.new("Congratulations !".colorize(:green))  
                    Message.new("You finished with #{attempts} attempts")
                     break
+                elsif comp_guess.zip(p_guess).all? { |c,p| c===p }
+                   Message.new(Computer.partial_and_matches(comp_guess,player_guess))
+                   Message.new("Congratulations !".colorize(:green))  
+                   Message.new("You finished with #{attempts} attempts")
+                   break
+                elsif guesses >= 12
+                  Message.new("Congratulations !".colorize(:green))  
+                  Message.new(Computer.partial_and_matches(comp_guess,player_guess))
+                  Message.new("No of attempts #{guesses}, attempts left #{12-attempts}") 
+                  break
                 else
                   Message.new(Computer.partial_and_matches(comp_guess,player_guess))
                   Message.new("No of attempts #{guesses}, attempts left #{12-attempts}") 
