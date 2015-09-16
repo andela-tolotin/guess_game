@@ -4,7 +4,7 @@ require_relative "player"
 require_relative "computer"
 
 class InitializeGame
-	attr_accessor:game_option, :mode, :level
+	attr_accessor:game_option, :mode, :level, :player, :computer_generated_color
 
   def initialize 
     init
@@ -26,84 +26,112 @@ class InitializeGame
            when "p" #call the play game  
             play_game # call the start game handle
           when "i"
-            Message.new("Enter a sequence of 4 colors containing the generated colors e.g RYBG or YGRB. If you enter fewer than 4 or more than 4 colors, you would receive an error message".colorize(:green))
+            game_info #call the game informtion
             init # call play game again to further continue the game after reading the instructions
           when "b"
-            Message.new("Just a little background on MASTERMIND Mastermind is a board game with an interesting history (or rather a legend?). Some game books report that it was invented in 1971 by Mordecai Meirowitz, an Israeli postmaster and telecommunications expert. After many rejections by leading toy companies, the rights were obtained by a small British firm, Invicta Plastics Ltd. The firm originally manufactured the game itself, though it has since licensed its manufacture to Hasbro in most of the world. However, Mastermind is just a clever readaptation of an old similar game called 'Bulls and cows' in English, and 'Numerello' in Italian... Actually, the old British game 'Bulls and cows' was somewhat different from the com
-mercial version. It was played on paper, not on a board... Over 50 million copies later, Mastermind is still marketed today! The idea of the game is for one player (the code-breaker) to guess the secret code chosen by the other player (the code-maker). The code is a sequence of 4 colored pegs chosen from six colors available. The code-breaker makes a series of pattern guesses - after each guess the code-maker gives feedback in the form of 2 numbers, the number of pegs that are of the right color and in the correct position, and the number of pegs that are of the correct color but not in the correct position - these numbers are usually represented by small black and whitepegs. In 1977, the mathematician Donald Knuth demonstrated that the code-breaker
- can solve the pattern in five moves or less, using an algorithm that progressively reduced the number of possible patterns.")
-        init #call the game to start again
+            game_background # back of the game called Mastermind
+            init #call the game to start again
           end
          else
-          Message.new("You have entered a wrong input") #output a message to the user concerning a wrong input
+          Message.new("You have entered a wrong input".colorize(:red)) #output a message to the user concerning a wrong input
           self.init # call the init game agian when the user input a wrong input
       end
 	end
 
     def play_game
-       computer_generated_color  = "" # capture the computer generated code here
+       @computer_generated_color  = "" # capture the computer generated code here
        display_player_level # call the display on the player level in order to know which code to generate for the player
        @level = gets.chomp
        level = Player.choose_game_level(@level) # This returns the level to which the player to  play
        level_keys = [1,2,3]
       if level_keys.include? level.to_i 
          if level == 1
-           computer_generated_color = Computer.beginner_code # The beginner generated color codes in array
+           @computer_generated_color = Computer.beginner_code # The beginner generated color codes in array
            elsif level == 2
-           computer_generated_color = Computer.intermediate_code # The Intermediate generated color codes in array
+           @computer_generated_color = Computer.intermediate_code # The Intermediate generated color codes in array
            elsif level == 3
-           computer_generated_color = Computer.advanced_code # The Advanced generated color codes in array
+           @computer_generated_color = Computer.advanced_code # The Advanced generated color codes in array
          end
         Message.new("So Would you like to play?".colorize(:green))
         Message.new("So start by telling me your name:".colorize(:green))
-        player = gets.chomp
-        comp_guess = Computer.begin(computer_generated_color.shuffle) #output to the player the pattern of the color expected from the player
-        run_guesses(computer_generated_color)
+        @player = gets.chomp
+        comp_guess = Computer.begin(@computer_generated_color.shuffle) #output to the player the pattern of the color expected from the player
+        run_guesses(@computer_generated_color)
        else
-        Message.new("You have entered a wrong level option") #output a message to the user concerning a wrong input
+        Message.new("You have entered a wrong level option",colorize(:red)) #output a message to the user concerning a wrong input
         self.play_game # call the init level agian when the user input a wrong input
         end
       end
     end
-          
+      
+      def game_info 
+        Message.new("Enter a sequence of 4 colors containing the generated colors e.g RYBG or YGRB.If you enter fewer than 4 or more than 4 colors, you would receive an error message")
+      end 
+
+      def game_background
+        Message.new("Just a little background on MASTERMIND Mastermind is a board game with an interesting history (or rather a legend?). Some game books report that it was invented in 1971 by Mordecai Meirowitz, an Israeli postmaster and telecommunications expert. After many rejections by leading toy companies, the rights were obtained by a small British firm, Invicta Plastics Ltd. The firm originally manufactured the game itself, though it has since licensed its manufacture to Hasbro in most of the world. However, Mastermind is just a clever readaptation of an old similar game called 'Bulls and cows' in English, and 'Numerello' in Italian... Actually, the old British game 'Bulls and cows' was somewhat different from the com
+mercial version. It was played on paper, not on a board... Over 50 million copies later, Mastermind is still marketed today! The idea of the game is for one player (the code-breaker) to guess the secret code chosen by the other player (the code-maker). The code is a sequence of 4 colored pegs chosen from six colors available. The code-breaker makes a series of pattern guesses - after each guess the code-maker gives feedback in the form of 2 numbers, the number of pegs that are of the right color and in the correct position, and the number of pegs that are of the correct color but not in the correct position - these numbers are usually represented by small black and whitepegs. In 1977, the mathematician Donald Knuth demonstrated that the code-breaker
+ can solve the pattern in five moves or less, using an algorithm that progressively reduced the number of possible patterns.")
+      end  
+
     def display_guess_console
       player_guess = gets.chomp # get the player guess
       player_guess = player_guess.downcase #convert the player guess to upcase 
       return player_guess
     end
 
+    def try_again
+       Message.new("Do you want to (p)lay again or (q)uit or (t)op_players?")
+       player_option = display_guess_console
+       case player_option.to_s
+       when "p"
+         comp_guess = Computer.begin(@computer_generated_color.shuffle) #output to the player the pattern of the color expected from the player
+         run_guesses(@computer_generated_color)
+       when "q"
+         Message.new("Thank you for playing MasterMind,"+"#{@player}!".capitalize.colorize(:green))
+         Message.new("Good Bye!".colorize(:red))
+       when "t"           
+       end
+    end
+
     def run_guesses(comp_guess,attempts=0,guesses=0)
-      #no_of_attemps = 0 #Number of attempts the player made before the game terminates
-      #no_of_guess = 0 # Number of chances the user has before starting the game
-       while guesses < 12 do 
+      start_time = 0.0 
+      end_time = 0.0 
+      #start_time = Time.start # the time the execution begin
+      while guesses < 12 do 
           player_guess = display_guess_console #called the console function to return the player guess input
           if player_guess.to_s == "q"
-              Message.new("Thank you for playing MasterMind, Good Bye!".colorize(:red))
+              Message.new("Thank you for playing MasterMind,"+"#{@player}!".capitalize.colorize(:green))
+              Message.new("Good Bye!".colorize(:red))
               break
              else
             #get the user guess and the guess must not be greater than the length of the computer generated code
             if (player_guess.length.to_i < comp_guess.length.to_i) || (player_guess.length.to_i > comp_guess.length.to_i)
               Message.new("Try again!")
-              #run_guesses(comp_guess,attempts,guesses)
-              #playerguess = display_guess_console
             else
-               guesses+=1
-               attempts+=1
-               p_guess = player_guess.upcase.split("")
+                guesses += 1
+                attempts += 1
+                p_guess = player_guess.upcase.split("") # split and turn the player guess input into array
                 if comp_guess.zip(p_guess).all? { |c,p| c===p } && guesses >= 12
                    Message.new(Computer.partial_and_matches(comp_guess,player_guess))
-                   Message.new("Congratulations !".colorize(:green))  
-                   Message.new("You finished with #{attempts} attempts")
+                   Message.new("Oop! you got the sequence but on last try".colorize(:red))  
+                   #end_time = Time.end 
+                   Message.new("You finished with #{attempts} attempts in #{end_time-start_time}")
+                   try_again
                     break
                 elsif comp_guess.zip(p_guess).all? { |c,p| c===p }
                    Message.new(Computer.partial_and_matches(comp_guess,player_guess))
-                   Message.new("Congratulations !".colorize(:green))  
-                   Message.new("You finished with #{attempts} attempts")
+                   Message.new("Congratulations! " + "#{@player}".capitalize.colorize(:green)) 
+                   #end_time = Time.end 
+                   Message.new("You finished with #{attempts} attempts in #{end_time-start_time}")
+                   try_again
                    break
                 elsif guesses >= 12
-                  Message.new("Congratulations !".colorize(:green))  
-                  Message.new(Computer.partial_and_matches(comp_guess,player_guess))
-                  Message.new("No of attempts #{guesses}, attempts left #{12-attempts}") 
+                  Message.new("You lost!".colorize(:red))  
+                  Message.new("The color sequence generated by the computer were #{computer_generated_color}".colorize(:red))
+                  #end_time = Time.end 
+                  Message.new("No of attempts #{guesses}, attempts left #{12-attempts} in #{end_time-start_time}") 
+                  try_again
                   break
                 else
                   Message.new(Computer.partial_and_matches(comp_guess,player_guess))
@@ -111,6 +139,7 @@ mercial version. It was played on paper, not on a board... Over 50 million copie
                end
             end
            end
+          
         end
     end
 

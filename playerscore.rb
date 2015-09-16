@@ -1,0 +1,3 @@
+class ReadWritePlayerScore
+	
+end
