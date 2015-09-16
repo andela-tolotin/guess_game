@@ -93,6 +93,7 @@ mercial version. It was played on paper, not on a board... Over 50 million copie
          Message.new("Good Bye!".colorize(:red))
        when "t" 
            Message.new(ReadWritePlayerScore.read_top_ten(@computer_generated_color))
+           try_again
        end
     end
 
