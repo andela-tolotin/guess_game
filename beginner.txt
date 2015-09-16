@@ -1,0 +1,5 @@
+doyin | 2 | 100
+temitope | 10 | 106.6
+temitope | 4 | 27.7
+gbenga | 4 | 45.8
+temitope | 2 | 9
