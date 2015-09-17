@@ -61,5 +61,4 @@ class ReadWritePlayerScore
      return response
  end
 end
-
 #puts ReadWritePlayerScore.read_top_ten(comp_code="rrrr")
