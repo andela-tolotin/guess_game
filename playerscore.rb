@@ -2,13 +2,7 @@ class ReadWritePlayerScore
 
 	def self.open_score_file(comp_code,player,attempts,exec_time)
 	  level = comp_code.length.to_i
-	  if level == 4
-		filename = "beginner.txt"
-	  elsif level == 5
-		filename = "intermidiate.txt"
-	  elsif level == 6
-		filename = "advance.txt"
-	  end
+	   filename =  determine_the_player_level(level)
 		if !comp_code.empty?
 		  write_line = "#{player} | #{attempts} | #{exec_time}"
 		  File.open(filename,"a+") { |f| f.puts write_line }
@@ -19,16 +13,8 @@ class ReadWritePlayerScore
 	  response = ""
       player_exec_time = Hash.new(0)
 	  level = comp_code.length.to_i
-	  if level == 4
-		filename = "beginner.txt"
-	  elsif level == 5
-		filename = "intermidiate.txt"
-	  elsif level == 6
-	    filename = "advance.txt"
-	  else
-		filename = ""
-	  end
-	     # open the txt file
+	  filename =  determine_the_player_level(level)
+	# open the txt file
 	if !File.exist?(filename) || File.zero?(filename)
 	  response += "File not Exits or No Top Player for now!"
 	else
@@ -60,5 +46,16 @@ class ReadWritePlayerScore
      end
      return response
  end
+ def self.determine_the_player_level(level)
+		if level == 4
+		  filename = "beginner.txt"
+	    elsif level == 5
+		  filename = "intermidiate.txt"
+	    elsif level == 6
+		  filename = "advance.txt"
+		else 
+		  filename = ""
+	    end
+	end
 end
 #puts ReadWritePlayerScore.read_top_ten(comp_code="rrrr")
