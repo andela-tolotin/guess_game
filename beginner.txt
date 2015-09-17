@@ -17,3 +17,4 @@ temitope | 1 | 1
 temi | 3 | 69
 olele | 1 | 39
 tempo | 3 | 24
+Michael | 5 | 64
