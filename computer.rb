@@ -12,7 +12,7 @@ class Computer
     else
       game_info = "I have generated a sequence with six elements made up of"
     end
-    Message.new("#{game_info} : #{color_combination} You are to guess the sequence in which these colors appeared e.g RGBY for (r)ed, (g)reen, (y)ellow and (g)reen. You have 12 guesses to get these colors or you lose the game. Use (q)uit at any time to end the game.")
+    Message.new("#{game_info} : #{color_combination} You are to guess the sequence in which these colors appeared e.g #{color_combination}. You have 12 guesses to get these colors or you lose the game. Use (q)uit at any time to end the game.")
     Message.new("Ready to play?")
     Message.new("What's your guess?")
   end
@@ -34,6 +34,10 @@ class Computer
       str_concat+="(V)iolet".colorize(:violet) + ", "
      when "I"
       str_concat+="(I)ndigo".colorize(:indigo) + ", "
+    when "M"
+      str_concat+="(M)agenta".colorize(:magenta) + ", "
+    when "C"
+       str_concat+="(C)yan".colorize(:cyan) + ", "
      end
       }
     end
@@ -49,7 +53,7 @@ class Computer
   end
 
   def self.intermediate_code
-    colors = ["R", "G", "B", "Y", "V"]
+    colors = ["R", "G", "B", "Y", "V","I"]
     array = []
     5.times { array << rand(5)}
     generated_colors = array.collect { |i| colors[i] }
@@ -57,7 +61,7 @@ class Computer
   end
 
   def self.advanced_code
-    colors = ["R", "G", "B", "Y", "V","I"]
+    colors = ["R", "G", "B", "Y", "V","I","M","C"]
     array = []
     6.times { array << rand(6)}
     generated_colors = array.collect { |i| colors[i] }
