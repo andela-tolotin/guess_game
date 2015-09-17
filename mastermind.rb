@@ -133,6 +133,7 @@ def run_guesses(comp_guess,attempts=0,guesses=0)
     else
       #get the user guess and the guess must not be greater than the length of the computer generated code
       if (player_guess.length.to_i < comp_guess.length.to_i) || (player_guess.length.to_i > comp_guess.length.to_i)
+        Message.new("Your guess input was either too short or too long".colorize(:red))
         Message.new("Try again!".colorize(:red))
       else
         guesses += 1
