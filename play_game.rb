@@ -17,10 +17,10 @@ def init
   @mode = gets.chomp
   mode = Player.choose_game_mode(@mode.downcase)
   #display the next game screen base on the player option selected
-  arr_options = ["p","b","i","q"]
+  mode_options = ["p","b","i","q"]
   mode = mode.downcase
   mode = mode.to_s
-  if arr_options.include? mode 
+  if mode_options.include? mode 
     case mode
       when "q" # call the quit to exit the game
         Message.new("Thank you good bye!".colorize(:red))
