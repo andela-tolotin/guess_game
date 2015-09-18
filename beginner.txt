@@ -38,3 +38,5 @@ tunde | 1 | 16
 tunde | 1 | 8
 tunde | 1 | 8
 jeffery | 1 | 31
+daniel | 1 | 10
+emmanuel | 1 | 5

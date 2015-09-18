@@ -79,8 +79,8 @@ class InitializeGame
       comp_guess = Computer.begin(@computer_generated_color.shuffle) #output to the player the pattern of the color expected from the player
       run_guesses(@computer_generated_color)
     else
-      Message.new("You have entered a wrong level option",colorize(:red)) #output a message to the user concerning a wrong input
-      self.play_game # call the init level agian when the user input a wrong input
+      Message.new("You have entered a wrong level option".colorize(:red)) #output a message to the user concerning a wrong input
+      play_game # call the init level agian when the user input a wrong input
     end
   end
         
