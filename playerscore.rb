@@ -38,7 +38,7 @@ class ReadWritePlayerScore
 	  player_name = p_factor[0].capitalize
 	  attempts = p_factor[1]
 	  counter+=1
-	  val = Time.at(val).utc.strftime("%M:%S") # convert the player time spent in seconds to minutes and seconds 
+	  val = Time.at(val).utc.strftime("%H:%M:%S") # convert the player time spent in seconds to minutes and seconds 
 	  response += "#{counter}. #{player_name} finishes with #{attempts} attempt(s) in #{val}secs \n"
 	  break if counter >= 10
     end 
