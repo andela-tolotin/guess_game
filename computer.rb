@@ -1,3 +1,5 @@
+require "colorize"
+
 class Computer 
 
   def self.begin(color_code)
@@ -98,6 +100,8 @@ class Computer
         result +=comp_hash[key]
       end
    end
-    return "#{matches}".colorize(:green) + " exact match and " + "#{result}".colorize(:blue) + " partial found "
+     "#{matches} exact match and #{result} partial found"
  end 
-end
+end #.colorize(:green) .colorize(:blue)
+
+#puts Computer.partial_and_matches(["G","B","R","Y"],"YGBR")

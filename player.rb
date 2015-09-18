@@ -8,19 +8,19 @@ attr_accessor:player
 	end
 
 	def self.choose_game_mode(game_mode)
-	  @game_mode = game_mode.downcase
-	  if !@game_mode.nil?
-		case @game_mode
-		  when "p"
-		    return "p"
-		  when "i"
-		    return "i"
-		  when "q"
-		    return "q"
-		  when "b"
-		    return "b"
-	  else
+	    if !@game_mode.nil?
+			case @game_mode
+		    when "p"
+		      return "p"
+		    when "i"
+		      return "i"
+		    when "q"
+		      return "q"
+		    when "b"
+		      return "b"
 			end
+		else
+			return game_mode
 		end
 	end
 
